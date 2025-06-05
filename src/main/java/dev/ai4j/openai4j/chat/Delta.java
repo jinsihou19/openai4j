@@ -23,14 +23,18 @@ public final class Delta {
     @JsonProperty
     private final String content;
     @JsonProperty
+    private final String reasoningContent;
+    @JsonProperty
     private final List<ToolCall> toolCalls;
     @JsonProperty
     @Deprecated
     private final FunctionCall functionCall;
 
     private Delta(Builder builder) {
+
         this.role = builder.role;
         this.content = builder.content;
+        this.reasoningContent = builder.reasoningContent;
         this.toolCalls = builder.toolCalls;
         this.functionCall = builder.functionCall;
     }
@@ -41,6 +45,10 @@ public final class Delta {
 
     public String content() {
         return content;
+    }
+
+    public String reasoningContent() {
+        return reasoningContent;
     }
 
     public List<ToolCall> toolCalls() {
@@ -97,6 +105,7 @@ public final class Delta {
 
         private Role role;
         private String content;
+        private String reasoningContent;
         private List<ToolCall> toolCalls;
         @Deprecated
         private FunctionCall functionCall;
@@ -111,6 +120,11 @@ public final class Delta {
 
         public Builder content(String content) {
             this.content = content;
+            return this;
+        }
+
+        public Builder reasoningContent(String reasoningContent) {
+            this.reasoningContent = reasoningContent;
             return this;
         }
 
