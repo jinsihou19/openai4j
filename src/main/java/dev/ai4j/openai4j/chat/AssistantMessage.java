@@ -34,6 +34,8 @@ public final class AssistantMessage implements Message {
     @JsonProperty
     @Deprecated
     private final FunctionCall functionCall;
+    @JsonProperty
+    private final String reasoningContent;
 
     private AssistantMessage(Builder builder) {
         this.content = builder.content;
@@ -41,6 +43,7 @@ public final class AssistantMessage implements Message {
         this.toolCalls = builder.toolCalls;
         this.refusal = builder.refusal;
         this.functionCall = builder.functionCall;
+        this.reasoningContent = builder.reasoningContent;
     }
 
     public Role role() {
@@ -68,6 +71,10 @@ public final class AssistantMessage implements Message {
         return functionCall;
     }
 
+    public String reasoningContent() {
+        return reasoningContent;
+    }
+
     @Override
     public boolean equals(Object another) {
         if (this == another) return true;
@@ -81,7 +88,8 @@ public final class AssistantMessage implements Message {
                 && Objects.equals(name, another.name)
                 && Objects.equals(toolCalls, another.toolCalls)
                 && Objects.equals(refusal, another.refusal)
-                && Objects.equals(functionCall, another.functionCall);
+                && Objects.equals(functionCall, another.functionCall)
+                && Objects.equals(reasoningContent, another.reasoningContent);
     }
 
     @Override
@@ -93,6 +101,7 @@ public final class AssistantMessage implements Message {
         h += (h << 5) + Objects.hashCode(toolCalls);
         h += (h << 5) + Objects.hashCode(refusal);
         h += (h << 5) + Objects.hashCode(functionCall);
+        h += (h << 5) + Objects.hashCode(reasoningContent);
         return h;
     }
 
@@ -105,6 +114,7 @@ public final class AssistantMessage implements Message {
                 + ", toolCalls=" + toolCalls
                 + ", refusal=" + refusal
                 + ", functionCall=" + functionCall
+                + ", reasoningContent=" + reasoningContent
                 + "}";
     }
 
@@ -129,6 +139,7 @@ public final class AssistantMessage implements Message {
         private Boolean refusal;
         @Deprecated
         private FunctionCall functionCall;
+        private String reasoningContent;
 
         private Builder() {
         }
@@ -163,6 +174,11 @@ public final class AssistantMessage implements Message {
         @Deprecated
         public Builder functionCall(FunctionCall functionCall) {
             this.functionCall = functionCall;
+            return this;
+        }
+
+        public Builder reasoningContent(String reasoningContent) {
+            this.reasoningContent = reasoningContent;
             return this;
         }
 

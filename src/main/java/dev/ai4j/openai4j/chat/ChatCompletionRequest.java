@@ -70,6 +70,8 @@ public final class ChatCompletionRequest {
     @JsonProperty
     private final String reasoningEffort;
     @JsonProperty
+    private final Thinking thinking;
+    @JsonProperty
     private final String serviceTier;
     @JsonProperty
     @Deprecated
@@ -101,6 +103,7 @@ public final class ChatCompletionRequest {
         this.store = builder.store;
         this.metadata = builder.metadata;
         this.reasoningEffort = builder.reasoningEffort;
+        this.thinking = builder.thinking;
         this.serviceTier = builder.serviceTier;
         this.functions = builder.functions;
         this.functionCall = builder.functionCall;
@@ -194,6 +197,10 @@ public final class ChatCompletionRequest {
         return reasoningEffort;
     }
 
+    public Thinking thinking() {
+        return thinking;
+    }
+
     public String serviceTier() {
         return serviceTier;
     }
@@ -238,6 +245,7 @@ public final class ChatCompletionRequest {
                 && Objects.equals(store, another.store)
                 && Objects.equals(metadata, another.metadata)
                 && Objects.equals(reasoningEffort, another.reasoningEffort)
+                && Objects.equals(thinking, another.thinking)
                 && Objects.equals(serviceTier, another.serviceTier)
                 && Objects.equals(functions, another.functions)
                 && Objects.equals(functionCall, another.functionCall);
@@ -268,6 +276,7 @@ public final class ChatCompletionRequest {
         h += (h << 5) + Objects.hashCode(store);
         h += (h << 5) + Objects.hashCode(metadata);
         h += (h << 5) + Objects.hashCode(reasoningEffort);
+        h += (h << 5) + Objects.hashCode(thinking);
         h += (h << 5) + Objects.hashCode(serviceTier);
         h += (h << 5) + Objects.hashCode(functions);
         h += (h << 5) + Objects.hashCode(functionCall);
@@ -299,6 +308,7 @@ public final class ChatCompletionRequest {
                 + ", store=" + store
                 + ", metadata=" + metadata
                 + ", reasoningEffort=" + reasoningEffort
+                + ", thinking=" + thinking
                 + ", serviceTier=" + serviceTier
                 + ", functions=" + functions
                 + ", functionCall=" + functionCall
@@ -336,6 +346,7 @@ public final class ChatCompletionRequest {
         private Boolean store;
         private Map<String, String> metadata;
         private String reasoningEffort;
+        private Thinking thinking;
         private String serviceTier;
         @Deprecated
         private List<Function> functions;
@@ -368,6 +379,7 @@ public final class ChatCompletionRequest {
             store(instance.store);
             metadata(instance.metadata);
             reasoningEffort(instance.reasoningEffort);
+            thinking(instance.thinking);
             serviceTier(instance.serviceTier);
             functions(instance.functions);
             functionCall(instance.functionCall);
@@ -565,6 +577,18 @@ public final class ChatCompletionRequest {
 
         public Builder reasoningEffort(String reasoningEffort) {
             this.reasoningEffort = reasoningEffort;
+            return this;
+        }
+
+        public Builder thinking(Thinking thinking) {
+            this.thinking = thinking;
+            return this;
+        }
+
+        public Builder thinking(Boolean enabled) {
+            if (enabled != null) {
+                this.thinking = enabled ? Thinking.ENABLED : Thinking.DISABLED;
+            }
             return this;
         }
 
